@@ -1,18 +1,26 @@
 import discord
 from discord.ext import commands
 from discord import FFmpegPCMAudio
-import requests
-import json
 
 bot = commands.Bot(command_prefix="!")
-
-bot.run("OTY1NjQ4NDA5OTg4MDQyNzUy.Yl2QKQ.XOVMrTivsAnWqoIRawYDx7C4_8g")
 
 @bot.event
 async def on_ready():
     print("Le bot est prêt.")
 
-@bot.event
-async def on_message(message):
-    if message.content.startswith("!play"):
-        source = FFmpegPCMAudio("/var/medias/Musiques/Les2minutesdupeuple Track 001.mp3")
+@bot.command()
+async def Bonjour(ctx):
+    await ctx.send("Bonjour !")
+
+@bot.command()
+async def l2mdp(ctx):
+    # Gets voice channel of message author
+    if ctx.author.voice:
+        channel = ctx.author.voice.channel
+        vc = await channel.connect()
+        vc.play(discord.FFmpegPCMAudio(executable='ffmpeg', source='Les2minutesdupeupleTrack001.mp3'))
+
+    else:
+        await ctx.send("Connectez vous a un channel vocal en premier.")
+
+bot.run("OTY1NjQ4NDA5OTg4MDQyNzUy.Yl2QKQ.XOVMrTivsAnWqoIRawYDx7C4_8g")

@@ -1,6 +1,10 @@
 import discord
 from discord.ext import commands
 from discord import FFmpegPCMAudio
+from dotenv import load_dotenv
+
+import os
+load_dotenv(dotenv_path="config")
 
 bot = commands.Bot(command_prefix="!")
 
@@ -23,4 +27,4 @@ async def l2mdp(ctx):
     else:
         await ctx.send("Connectez vous a un channel vocal en premier.")
 
-bot.run("OTY1NjQ4NDA5OTg4MDQyNzUy.Yl2QKQ.XOVMrTivsAnWqoIRawYDx7C4_8g")
+bot.run(os.getenv("TOKEN"))

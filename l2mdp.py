@@ -14,11 +14,11 @@ async def Bonjour(ctx):
 
 @bot.command()
 async def l2mdp(ctx):
-    # Gets voice channel of message author
     if ctx.author.voice:
         channel = ctx.author.voice.channel
         vc = await channel.connect()
-        vc.play(discord.FFmpegPCMAudio(executable='ffmpeg', source='Les2minutesdupeupleTrack001.mp3'))
+        await ctx.send("Coucou c'est moi !")
+        vc.play(discord.FFmpegPCMAudio(executable='ffmpeg', source='Z:\Musiques\Les2minutesdupeupleTrack001.mp3'))
 
     else:
         await ctx.send("Connectez vous a un channel vocal en premier.")

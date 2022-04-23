@@ -22,11 +22,12 @@ async def l2mdp(ctx):
     if ctx.author.voice:
         channel = ctx.author.voice.channel
         vc = await channel.connect()
-        nbAleatoire = random.randint(1,5)
-        chemin = 'Z:\Musiques\Les2minutesdupeuple Track 00' + str(nbAleatoire) + '.mp3'
-        await ctx.send('**Now playing:** {}'.format(chemin))
-        vc.play(discord.FFmpegPCMAudio(executable='ffmpeg', source=chemin))
-        vc.is_playing()
+        if ctx.voice_client.is_connected():
+            nbAleatoire = random.randint(1,5)
+            chemin = 'Z:\Musiques\Les2minutesdupeuple Track 00' + str(nbAleatoire) + '.mp3'
+            await ctx.send('**Now playing:** {}'.format(chemin))
+            vc.play(discord.FFmpegPCMAudio(executable='ffmpeg', source=chemin))
+            vc.is_playing()
     else:
         await ctx.send("Connectez vous a un channel vocal en premier.")
 
@@ -47,6 +48,7 @@ async def join(ctx):
 
 @bot.command()
 async def logout(ctx):
+    await bot.change_presence(status=discord.Status.offline)
     await bot.close()
 
 bot.run(os.getenv("TOKEN"))

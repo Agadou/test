@@ -30,12 +30,23 @@ async def l2mdp(ctx):
     else:
         await ctx.send("Connectez vous a un channel vocal en premier.")
 
-@bot.command(name='pause', help='This command pauses the song')
+@bot.command()
 async def pause(ctx):
     voice_client = ctx.author.voice.channel
-    if voice_client.is_playing():
-        await voice_client.pause()
+    if ctx.voice_client.is_playing():
+        await ctx.voice_client.pause()
     else:
         await ctx.send("The bot is not playing anything at the moment.")
+@bot.command()
+async def quit(ctx):
+    await ctx.voice_client.disconnect()
+
+@bot.command()
+async def join(ctx):
+    await ctx.author.voice.channel.connect()
+
+@bot.command()
+async def logout(ctx):
+    await bot.close()
 
 bot.run(os.getenv("TOKEN"))
